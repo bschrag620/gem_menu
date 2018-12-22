@@ -80,8 +80,13 @@ module GemMenu
 
         def retreive_selection
             display_menu
+            puts "\n"
             puts "Please make your selection:".colorize(:light_green)
             receive_input
+        end
+
+        def retrieve_selection
+            retreive_selection
         end
 
         def display_menu
