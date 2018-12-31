@@ -11,10 +11,11 @@ def main_menu
   world = GemMenu::Entry.new('world', method(:counting_world))
   second_menu = GemMenu::Entry.new('2nd level', method(:menu_2))
   food_menu = GemMenu::Entry.new('food menu', method(:menu_favorite_foods))
+  long = GemMenu::Entry.new('long menu', method(:long_menu))
 
 # Step 2, once entries are created, create the Menu object and return it with
 #                   (title text, array_of_Entries, optional_args)
-  GemMenu::Menu.new('main menu', [hello, world, second_menu, food_menu])
+  GemMenu::Menu.new('main menu', [hello, world, second_menu, food_menu, long])
 end
 
 def menu_2
@@ -48,6 +49,14 @@ def menu_favorite_foods
 # previous menu
   optional_args = {previous_menu: method(:main_menu)}
   GemMenu::Menu.new('my favorite foods', menu_entries, optional_args)
+end
+
+def long_menu
+    entries = []
+    (1..15).each do |i|
+        entries << GemMenu::Entry.new("#{i}", method(:main_menu))
+    end
+    GemMenu::Menu.new("long menu, testing order", entries)
 end
 
 def say_fav_food(food)

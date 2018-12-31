@@ -39,7 +39,7 @@ module GemMenu
     end
 
     class Menu
-        attr_accessor :title, :entries, :previous_menu, :parameter, :menu_hash
+        attr_accessor :title, :entries, :previous_menu, :parameter, :menu_hash, :menu_length
 
         @@exit = Entry.new('exit', method(:exit))
         @@menu_char_begin = "<==  ".colorize(:light_blue)
@@ -72,6 +72,7 @@ module GemMenu
         def set_choices
             self.entries.each.with_index(1) do |entry, i|
                 self.menu_hash[i.to_s] = entry
+                self.menu_length = i
             end
             if self.previous_menu
                 self.menu_hash['b'] = GemMenu::Entry.new('back', self.previous_menu)
@@ -92,9 +93,19 @@ module GemMenu
         def display_menu
             puts
             puts "#{self.menu_char_begin}#{self.title}#{self.menu_char_end}"
-            menu_hash.sort.to_h.each do |user_choice, description|
+            (0..self.menu_length - 1).each do |i|            
+              user_choice = (i + 1).to_s
+              description = self.menu_hash[(i + 1).to_s]
               puts "#{user_choice.colorize(:light_yellow)}) #{description}"
             end
+            if self.menu_hash.include?('b')
+                user_choice = 'b'
+                description = self.menu_hash['b']
+                puts "#{user_choice.colorize(:light_yellow)}) back"
+            end
+            user_choice = 'x'
+            descritpion = self.menu_hash['x']
+            puts "#{user_choice.colorize(:light_yellow)}) exit"
         end
 
         def receive_input
