@@ -22,7 +22,8 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+For video demo of usage:
+https://youtu.be/dzRYfQhdFAM
 
 ## Development
 
